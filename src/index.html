@@ -12,20 +12,18 @@
 </head>
 
 <body>
-  <div class="page-container">
-    <div class="search-container">
-      <form id="search-form" class="search-form">
-        <input type="text" name="searchQuery" placeholder="Search images..." />
-        <button type="submit">Search</button>
-      </form>
-      <div class="loader">Loading images, please wait...</div>
-    </div>
+  <div class="container">
+    <form class="search-form" id="search-form">
+      <input class="search-input" type="text" name="searchQuery" autocomplete="off" placeholder="Search images..." />
+      <button class="search-button" type="submit">Search</button>
+    </form>
+
+    <p class="loader-text">Loading images, please wait...</p>
 
     <ul class="gallery"></ul>
 
-    <div class="load-more-wrapper">
-      <button type="button" class="load-more hidden">Load more</button>
-    </div>
+    <p class="loader-text bottom hidden">Loading images, please wait...</p>
+    <button type="button" class="load-more hidden">Load more</button>
   </div>
 
   <script type="module" src="./js/main.js"></script>

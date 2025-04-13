@@ -1,62 +1,33 @@
-import SimpleLightbox from 'simplelightbox';
-import 'simplelightbox/dist/simple-lightbox.min.css';
-
-const galleryContainer = document.querySelector('.gallery');
-const loader = document.querySelector('.loader');
-const loadMoreButton = document.querySelector('.load-more');
-
-let lightbox = new SimpleLightbox('.gallery a', {
-  captionsData: 'alt',
-  captionDelay: 250,
-});
+const gallery = document.querySelector('.gallery');
 
 export function createGallery(images) {
   const markup = images
     .map(
-      ({
-        webformatURL,
-        largeImageURL,
-        tags,
-        likes,
-        views,
-        comments,
-        downloads,
-      }) => `
-      <li>
-        <a href="${largeImageURL}">
-          <img src="${webformatURL}" alt="${tags}" loading="lazy" />
-        </a>
-        <div class="info">
-          <p><b>Likes</b> ${likes}</p>
-          <p><b>Views</b> ${views}</p>
-          <p><b>Comments</b> ${comments}</p>
-          <p><b>Downloads</b> ${downloads}</p>
+      img => `
+      <li class="gallery-item">
+        <img src="${img.webformatURL}" alt="${img.tags}" loading="lazy" />
+        <div class="meta">
+          <div><b>Likes</b> ${img.likes}</div>
+          <div><b>Views</b> ${img.views}</div>
+          <div><b>Comments</b> ${img.comments}</div>
+          <div><b>Downloads</b> ${img.downloads}</div>
         </div>
       </li>
     `
     )
     .join('');
 
-  galleryContainer.insertAdjacentHTML('beforeend', markup);
-  lightbox.refresh();
+  gallery.insertAdjacentHTML('beforeend', markup);
 }
 
 export function clearGallery() {
-  galleryContainer.innerHTML = '';
-}
-
-export function showLoader() {
-  loader.classList.remove('hidden');
-}
-
-export function hideLoader() {
-  loader.classList.add('hidden');
+  gallery.innerHTML = '';
 }
 
 export function showLoadMoreButton() {
-  loadMoreButton.classList.remove('hidden');
+  document.querySelector('.load-more').classList.remove('hidden');
 }
 
 export function hideLoadMoreButton() {
-  loadMoreButton.classList.add('hidden');
+  document.querySelector('.load-more').classList.add('hidden');
 }
