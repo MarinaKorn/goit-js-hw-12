@@ -1,11 +1,11 @@
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 
-const galleryContainer = document.querySelector('.gallery');
-const loader = document.querySelector('.loader');
+const galleryEl = document.querySelector('.gallery');
+const loaderEl = document.querySelector('.loader');
 const loadMoreBtn = document.querySelector('.load-more');
 
-let lightbox = new SimpleLightbox('.gallery a', {
+const lightbox = new SimpleLightbox('.gallery a', {
   captionsData: 'alt',
   captionDelay: 250,
 });
@@ -22,41 +22,39 @@ export function createGallery(images) {
         comments,
         downloads,
       }) => `
-      <div class="gallery-card">
-        <a href="${largeImageURL}">
-          <img src="${webformatURL}" alt="${tags}" loading="lazy" />
-        </a>
-        <div class="card-info">
-          <div class="card-info-item"><strong>Likes</strong> ${likes}</div>
-          <div class="card-info-item"><strong>Views</strong> ${views}</div>
-          <div class="card-info-item"><strong>Comments</strong> ${comments}</div>
-          <div class="card-info-item"><strong>Downloads</strong> ${downloads}</div>
-        </div>
-      </div>
-    `
+    <li>
+      <a href="${largeImageURL}">
+        <img src="${webformatURL}" alt="${tags}" loading="lazy" />
+      </a>
+      <p><b>Likes</b> ${likes}</p>
+      <p><b>Views</b> ${views}</p>
+      <p><b>Comments</b> ${comments}</p>
+      <p><b>Downloads</b> ${downloads}</p>
+    </li>
+  `
     )
     .join('');
 
-  galleryContainer.insertAdjacentHTML('beforeend', markup);
+  galleryEl.insertAdjacentHTML('beforeend', markup);
   lightbox.refresh();
 }
 
 export function clearGallery() {
-  galleryContainer.innerHTML = '';
+  galleryEl.innerHTML = '';
 }
 
 export function showLoader() {
-  loader.classList.add('active');
+  loaderEl.classList.remove('hidden');
 }
 
 export function hideLoader() {
-  loader.classList.remove('active');
+  loaderEl.classList.add('hidden');
 }
 
 export function showLoadMoreButton() {
-  loadMoreBtn.classList.add('visible');
+  loadMoreBtn.classList.remove('hidden');
 }
 
 export function hideLoadMoreButton() {
-  loadMoreBtn.classList.remove('visible');
+  loadMoreBtn.classList.add('hidden');
 }
