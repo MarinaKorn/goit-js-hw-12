@@ -11,7 +11,8 @@ import {
 import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
 
-const form = document.querySelector('.form');
+const form = document.querySelector('#search-form');
+const input = form.querySelector('input[name="searchQuery"]');
 const loadMoreBtn = document.querySelector('.load-more');
 
 let query = '';
@@ -20,27 +21,34 @@ let totalPages = 0;
 
 form.addEventListener('submit', async e => {
   e.preventDefault();
-  query = e.target.elements['search-text'].value.trim();
+  query = input.value.trim();
   page = 1;
   clearGallery();
   hideLoadMoreButton();
 
-  if (!query) return;
+  if (!query) {
+    iziToast.warning({ message: 'Please enter a search query.' });
+    return;
+  }
 
   showLoader();
   try {
     const data = await getImagesByQuery(query, page);
     if (data.hits.length === 0) {
-      iziToast.error({ message: "Sorry, there are no images matching your search query." });
+      iziToast.error({
+        message: 'Sorry, there are no images matching your search query. Please try again.',
+      });
       return;
     }
 
     createGallery(data.hits);
     totalPages = Math.ceil(data.totalHits / 15);
 
-    if (page < totalPages) showLoadMoreButton();
+    if (page < totalPages) {
+      showLoadMoreButton();
+    }
   } catch (err) {
-    iziToast.error({ message: 'Something went wrong' });
+    iziToast.error({ message: 'Something went wrong. Please try again.' });
   } finally {
     hideLoader();
   }
@@ -56,16 +64,18 @@ loadMoreBtn.addEventListener('click', async () => {
 
     if (page >= totalPages) {
       hideLoadMoreButton();
-      iziToast.info({ message: "You've reached the end of search results." });
+      iziToast.info({
+        message: "We're sorry, but you've reached the end of search results.",
+      });
     }
 
     const { height: cardHeight } = document
-      .querySelector('.gallery li')
+      .querySelector('.gallery a')
       .getBoundingClientRect();
 
     window.scrollBy({ top: cardHeight * 2, behavior: 'smooth' });
   } catch (err) {
-    iziToast.error({ message: 'Something went wrong' });
+    iziToast.error({ message: 'Something went wrong. Please try again.' });
   } finally {
     hideLoader();
   }
