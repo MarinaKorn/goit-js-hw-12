@@ -1,16 +1,29 @@
+import SimpleLightbox from 'simplelightbox';
+import 'simplelightbox/dist/simple-lightbox.min.css';
+
 const gallery = document.querySelector('.gallery');
+const loader = document.querySelector('.loader');
+const loadMoreButton = document.querySelector('.load-more');
+
+// Инициализация SimpleLightbox
+let lightbox = new SimpleLightbox('.gallery a', {
+  captionsData: 'alt',
+  captionDelay: 250,
+});
 
 export function createGallery(images) {
   const markup = images
     .map(
-      img => `
+      image => `
       <li class="gallery-item">
-        <img src="${img.webformatURL}" alt="${img.tags}" loading="lazy" />
-        <div class="meta">
-          <div><b>Likes</b> ${img.likes}</div>
-          <div><b>Views</b> ${img.views}</div>
-          <div><b>Comments</b> ${img.comments}</div>
-          <div><b>Downloads</b> ${img.downloads}</div>
+        <a href="${image.largeImageURL}">
+          <img src="${image.webformatURL}" alt="${image.tags}" loading="lazy" />
+        </a>
+        <div class="info">
+          <p><b>Likes</b> ${image.likes}</p>
+          <p><b>Views</b> ${image.views}</p>
+          <p><b>Comments</b> ${image.comments}</p>
+          <p><b>Downloads</b> ${image.downloads}</p>
         </div>
       </li>
     `
@@ -18,16 +31,25 @@ export function createGallery(images) {
     .join('');
 
   gallery.insertAdjacentHTML('beforeend', markup);
+  lightbox.refresh();
 }
 
 export function clearGallery() {
   gallery.innerHTML = '';
 }
 
+export function showLoader() {
+  loader.classList.remove('hidden');
+}
+
+export function hideLoader() {
+  loader.classList.add('hidden');
+}
+
 export function showLoadMoreButton() {
-  document.querySelector('.load-more').classList.remove('hidden');
+  loadMoreButton.classList.remove('hidden');
 }
 
 export function hideLoadMoreButton() {
-  document.querySelector('.load-more').classList.add('hidden');
+  loadMoreButton.classList.add('hidden');
 }
