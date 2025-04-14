@@ -7,11 +7,11 @@ import {
 } from './js/render-functions.js';
 
 import iziToast from 'izitoast';
+import 'izitoast/dist/css/iziToast.min.css';
 
-const form = document.querySelector('#search-form');
+const form = document.querySelector('.form');
 const loadMoreBtn = document.querySelector('.load-more');
-const loaderTop = document.querySelector('.loader-text');
-const loaderBottom = document.querySelector('.loader-text.bottom');
+const loader = document.querySelector('.loader-text');
 const gallery = document.querySelector('.gallery');
 
 let query = '';
@@ -20,12 +20,13 @@ let totalPages = 0;
 
 form.addEventListener('submit', async e => {
   e.preventDefault();
-  query = e.target.elements.searchQuery.value.trim();
+  query = e.target.elements['search-text'].value.trim();
   page = 1;
   clearGallery();
   hideLoadMoreButton();
-  loaderTop.classList.remove('hidden');
-  loaderBottom.classList.add('hidden');
+
+  form.insertAdjacentElement('afterend', loader);
+  loader.classList.remove('hidden');
 
   if (!query) return;
 
@@ -38,18 +39,21 @@ form.addEventListener('submit', async e => {
 
     createGallery(data.hits);
     totalPages = Math.ceil(data.totalHits / 15);
+
     if (page < totalPages) showLoadMoreButton();
   } catch (error) {
     iziToast.error({ message: 'Something went wrong' });
   } finally {
-    loaderTop.classList.add('hidden');
-    loaderBottom.classList.remove('hidden');
+    loader.classList.add('hidden');
   }
 });
 
 loadMoreBtn.addEventListener('click', async () => {
   page += 1;
-  loaderBottom.classList.remove('hidden');
+
+
+  loadMoreBtn.insertAdjacentElement('beforebegin', loader);
+  loader.classList.remove('hidden');
 
   try {
     const data = await getImagesByQuery(query, page);
@@ -65,6 +69,6 @@ loadMoreBtn.addEventListener('click', async () => {
   } catch (err) {
     iziToast.error({ message: 'Something went wrong' });
   } finally {
-    loaderBottom.classList.add('hidden');
+    loader.classList.add('hidden');
   }
 });

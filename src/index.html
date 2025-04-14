@@ -13,17 +13,17 @@
 
 <body>
   <div class="container">
-    <form class="search-form" id="search-form">
-      <input class="search-input" type="text" name="searchQuery" autocomplete="off" placeholder="Search images..." />
-      <button class="search-button" type="submit">Search</button>
+    <form class="form">
+      <label>
+        <input type="text" name="search-text" placeholder="Search images..." required />
+      </label>
+      <button type="submit">Search</button>
     </form>
 
-    <p class="loader-text">Loading images, please wait...</p>
-
-    <ul class="gallery"></ul>
-
-    <p class="loader-text bottom hidden">Loading images, please wait...</p>
+    <span class="loader hidden">Loading images, please wait...</span>
+    <div class="gallery"></div>
     <button type="button" class="load-more hidden">Load more</button>
+
   </div>
 
   <script type="module" src="./main.js"></script>
