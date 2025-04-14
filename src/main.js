@@ -11,7 +11,7 @@ import 'izitoast/dist/css/iziToast.min.css';
 
 const form = document.querySelector('.form');
 const loadMoreBtn = document.querySelector('.load-more');
-const loader = document.querySelector('.loader-text');
+const loader = document.querySelector('.loader');
 const gallery = document.querySelector('.gallery');
 
 let query = '';
