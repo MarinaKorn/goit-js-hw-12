@@ -17,22 +17,76 @@
 @import url('./back-link.css');
 @import url('./footer.css');
 
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Montserrat', sans-serif;
+  background-color: #f8f8f8;
+  color: #2e2f42;
+}
+
+.container {
+  max-width: 1440px;
+  padding: 40px 24px;
+  margin: 0 auto;
+}
+
+form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 32px;
+}
+
+form input[type='text'] {
+  width: 320px;
+  padding: 12px 16px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 16px;
+  color: #2e2f42;
+}
+
+form button {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  background-color: #4e75ff;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+form button:hover {
+  background-color: #3256e8;
+}
+
 .gallery {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
   gap: 24px;
-  padding: 24px 0;
-  justify-items: center;
+  justify-content: center;
 }
 
 .gallery-item {
-  width: 100%;
-  max-width: 360px;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
   overflow: hidden;
-  background-color: #fff;
-  transition: transform 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s ease-in-out;
+}
+
+.gallery-item:hover {
+  transform: scale(1.01);
 }
 
 .gallery-item img {
@@ -42,23 +96,59 @@
   display: block;
 }
 
-.gallery-item-info {
-  padding: 16px;
+.gallery-info {
+  padding: 12px 16px;
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  row-gap: 8px;
-  font-family: 'Montserrat', sans-serif;
+  grid-template-columns: repeat(2, 1fr);
+  row-gap: 4px;
   font-size: 14px;
 }
 
-.gallery-item-info b {
+.gallery-info b {
   display: block;
-  margin-bottom: 4px;
   font-weight: 600;
+}
+
+.loader {
+  font-size: 16px;
+  color: #2e2f42;
+  margin: 24px auto;
+  text-align: center;
+  width: 100%;
+}
+
+.loader.hidden {
+  display: none;
+}
+
+.load-more {
+  display: block;
+  margin: 32px auto 0;
+  padding: 12px 24px;
+  font-size: 16px;
+  background-color: #4e75ff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.load-more:hover {
+  background-color: #3256e8;
+}
+
+.load-more.hidden {
+  display: none;
 }
 
 @media (max-width: 768px) {
   .gallery {
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  }
+
+  form input[type='text'] {
+    width: 100%;
+    max-width: 250px;
   }
 }
