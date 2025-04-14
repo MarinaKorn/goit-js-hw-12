@@ -25,7 +25,6 @@ form.addEventListener('submit', async e => {
   clearGallery();
   hideLoadMoreButton();
 
-  form.insertAdjacentElement('afterend', loader);
   loader.classList.remove('hidden');
 
   if (!query) return;
