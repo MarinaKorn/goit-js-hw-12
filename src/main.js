@@ -20,7 +20,7 @@ let totalPages = 0;
 
 form.addEventListener('submit', async e => {
   e.preventDefault();
-  query = e.target.elements['search-text'].value.trim();
+  query = e.target.elements['searchQuery'].value.trim();
   page = 1;
   clearGallery();
   hideLoadMoreButton();
